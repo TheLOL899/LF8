@@ -1,1 +1,1 @@
-# LF8
+# LF8 - Das coolste Quizgame überhaupt 
