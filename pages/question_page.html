@@ -1,0 +1,118 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Quizly</title>
+            <style>
+                 /* Background of the Page */
+                body {
+                    background-color: lightskyblue;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                    flex-direction: column;
+                }
+                 /* The Container for the 4 answers */
+                .button-container {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
+                }
+                 /* Template for all buttons */
+                button {
+                    padding: 10px 20px;
+                    background-color: lightgray;
+                    color: black;
+                    font-size: 70px;
+                    transition: background-color 0.3s ease;
+                    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                    border-radius: 40px;
+                }
+                button:active {
+                    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                    transform: translate(3px, 3px);
+                }
+                .next-button {
+                    position: fixed;
+                    left: 50%;
+                    bottom: 0;
+                    transform: translateX(-50%);
+                    padding: 10px 20px;
+                    background-color: lightgray;
+                    color: black;
+                    font-size: 70px;
+                    margin-bottom: 80px;
+                }
+                .button-container button:hover {
+                    background-color: gray;
+                    cursor: pointer;
+                }
+                .button-container button.disabled:hover {
+                    background-color: lightgray;
+                    cursor: default;
+                }
+                .next-button:hover {
+                    background-color: gray;
+                    cursor: pointer;
+                }
+                .correct-answer {
+                    background-color: lightgreen !important;
+                }
+                .wrong-answer {
+                    background-color: lightcoral !important;
+                }
+                h1 {
+                    color: black;
+                    font-size: 70px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Who killed Captain Alex?</h1>
+            <div class="button-container">
+                <button id="correct" onclick="checkAnswer(true, this)">Uganda, Mafia</button>
+                <button onclick="checkAnswer(false, this)">Deez Nutz</button>
+                <button onclick="checkAnswer(false, this)">Joe Biden</button>
+                <button onclick="checkAnswer(false, this)">Joe Mama</button>
+            </div>
+            
+            <script>
+                function checkAnswer(isCorrect, button) {
+                    var correctButton = document.getElementById("correct");
+                    var buttons = document.querySelectorAll(".button-container button");
+                    var body = document.querySelector("body");
+
+                    buttons.forEach(function(btn) {
+                        btn.disabled = true;
+                        btn.classList.add("disabled");
+                    });
+
+                    var resultText = document.createElement("p");
+                    resultText.style.textAlign = "center";
+                    resultText.style.fontSize = "70px";
+
+                    if (isCorrect) {
+                        button.classList.add("correct-answer");
+                        resultText.textContent = "Correct!";
+                        resultText.style.color = "green";
+                    } else {
+                        button.classList.add("wrong-answer");
+                        correctButton.classList.add("correct-answer");
+                        resultText.textContent = "Incorrect!";
+                        resultText.style.color = "red";
+                    }
+
+                    var nextButton = document.createElement("button");
+                    nextButton.textContent = "Next Question";
+                    nextButton.classList.add("next-button");
+
+                    body.appendChild(resultText);
+                    body.appendChild(nextButton);
+                }
+            </script>
+        </body>
+        </html>
