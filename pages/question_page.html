@@ -5,7 +5,6 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Quizly</title>
             <style>
-                 /* Background of the Page */
                 body {
                     background-color: lightskyblue;
                     display: flex;
@@ -15,25 +14,23 @@
                     margin: 0;
                     flex-direction: column;
                 }
-                 /* The Container for the 4 answers */
                 .button-container {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
-                    gap: 10px;
+                    gap: 50px;
                 }
-                 /* Template for all buttons */
                 button {
                     padding: 10px 20px;
-                    background-color: lightgray;
+                    background-color: silver;
                     color: black;
                     font-size: 70px;
                     transition: background-color 0.3s ease;
-                    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                    box-shadow: 5px 5px 10px black;
+                    text-shadow: 1px 1px 2px black;
                     border-radius: 40px;
                 }
                 button:active {
-                    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 2px 2px 4px black;
                     transform: translate(3px, 3px);
                 }
                 .next-button {
@@ -46,6 +43,9 @@
                     color: black;
                     font-size: 70px;
                     margin-bottom: 80px;
+                }
+                .next-button:active {
+                    transform: translateX(-50%);
                 }
                 .button-container button:hover {
                     background-color: gray;
@@ -72,6 +72,7 @@
             </style>
         </head>
         <body>
+            <!-- Can be deleted when Database fetch works -->
             <h1>Who killed Captain Alex?</h1>
             <div class="button-container">
                 <button id="correct" onclick="checkAnswer(true, this)">Uganda, Mafia</button>
@@ -81,6 +82,12 @@
             </div>
             
             <script>
+                function shuffle(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                }
                 function checkAnswer(isCorrect, button) {
                     var correctButton = document.getElementById("correct");
                     var buttons = document.querySelectorAll(".button-container button");
@@ -113,6 +120,23 @@
                     body.appendChild(resultText);
                     body.appendChild(nextButton);
                 }
+                window.onload = function() {
+                    fetch('/api/fragen')
+                        .then(response => response.json())
+                        .then(question => {
+                            document.querySelector('h1').textContent = question.text;
+                            const buttons = Array.from(document.querySelectorAll('.button-container button'));
+                            buttons.forEach((button, index) => {
+                                button.textContent = question.answers[index];
+                                button.onclick = function() {
+                                    checkAnswer(question.correctAnswerIndex === index, this);
+                                };
+                            });
+                            shuffle(buttons);
+                            const buttonContainer = document.querySelector('.button-container');
+                            buttons.forEach(button => buttonContainer.appendChild(button));
+                        });
+                };
             </script>
         </body>
         </html>
