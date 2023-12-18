@@ -81,62 +81,6 @@
                 <button onclick="checkAnswer(false, this)">Joe Mama</button>
             </div>
             
-            <script>
-                function shuffle(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        let j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]];
-                    }
-                }
-                function checkAnswer(isCorrect, button) {
-                    var correctButton = document.getElementById("correct");
-                    var buttons = document.querySelectorAll(".button-container button");
-                    var body = document.querySelector("body");
-
-                    buttons.forEach(function(btn) {
-                        btn.disabled = true;
-                        btn.classList.add("disabled");
-                    });
-
-                    var resultText = document.createElement("p");
-                    resultText.style.textAlign = "center";
-                    resultText.style.fontSize = "70px";
-
-                    if (isCorrect) {
-                        button.classList.add("correct-answer");
-                        resultText.textContent = "Correct!";
-                        resultText.style.color = "green";
-                    } else {
-                        button.classList.add("wrong-answer");
-                        correctButton.classList.add("correct-answer");
-                        resultText.textContent = "Incorrect!";
-                        resultText.style.color = "red";
-                    }
-
-                    var nextButton = document.createElement("button");
-                    nextButton.textContent = "Next Question";
-                    nextButton.classList.add("next-button");
-
-                    body.appendChild(resultText);
-                    body.appendChild(nextButton);
-                }
-                window.onload = function() {
-                    fetch('/api/fragen')
-                        .then(response => response.json())
-                        .then(question => {
-                            document.querySelector('h1').textContent = question.text;
-                            const buttons = Array.from(document.querySelectorAll('.button-container button'));
-                            buttons.forEach((button, index) => {
-                                button.textContent = question.answers[index];
-                                button.onclick = function() {
-                                    checkAnswer(question.correctAnswerIndex === index, this);
-                                };
-                            });
-                            shuffle(buttons);
-                            const buttonContainer = document.querySelector('.button-container');
-                            buttons.forEach(button => buttonContainer.appendChild(button));
-                        });
-                };
-            </script>
+            <script src="question_page.js"></script>
         </body>
         </html>
