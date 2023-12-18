@@ -1,0 +1,5 @@
+# .gitignore
+
+# Ignoriere das Verzeichnis node_modules
+node_modules/
+quiz.db
