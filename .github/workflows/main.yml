@@ -1,0 +1,53 @@
+name: Continuous Integration and Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Static Code Analysis
+      run: npx eslint .
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Code Coverage
+      run: npm run test:coverage
+
+    - name: Automated Integration Tests
+      run: npm run test:integration
+
+  deploy:
+    runs-on: windows-latest
+
+    needs: build
+
+    steps:
+    - name: Deploy to Test Environment
+      run: npm run deploy:test
+
+  post-deploy:
+    runs-on: ubuntu-latest
+
+    needs: deploy
+
+    steps:
+    - name: Additional Post-Deployment Steps
+      run: |
+        echo "Deployment to Test Environment completed successfully!"
