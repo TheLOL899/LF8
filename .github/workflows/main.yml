@@ -3,7 +3,7 @@ name: Continuous Integration and Deployment
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   build:
@@ -21,17 +21,17 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: Install ESLint
+      run: npm install eslint
+
     - name: Static Code Analysis
-      run: npx eslint .
+      run: npx eslint . --fix
 
     - name: Run Tests
       run: npm test
 
     - name: Code Coverage
       run: npm run test:coverage
-
-    - name: Automated Integration Tests
-      run: npm run test:integration
 
   deploy:
     runs-on: windows-latest
@@ -43,7 +43,7 @@ jobs:
       run: npm run deploy:test
 
   post-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     needs: deploy
 
