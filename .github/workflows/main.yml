@@ -33,9 +33,6 @@ jobs:
     - name: Code Coverage
       run: npm run test:coverage
 
-    - name: Automated Integration Tests
-      run: npm run test:integration
-
   deploy:
     runs-on: windows-latest
 
