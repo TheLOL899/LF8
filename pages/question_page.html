@@ -1,86 +1,21 @@
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Quizly</title>
-            <style>
-                body {
-                    background-color: lightskyblue;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    margin: 0;
-                    flex-direction: column;
-                }
-                .button-container {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 50px;
-                }
-                button {
-                    padding: 10px 20px;
-                    background-color: silver;
-                    color: black;
-                    font-size: 70px;
-                    transition: background-color 0.3s ease;
-                    box-shadow: 5px 5px 10px black;
-                    text-shadow: 1px 1px 2px black;
-                    border-radius: 40px;
-                }
-                button:active {
-                    box-shadow: 2px 2px 4px black;
-                    transform: translate(3px, 3px);
-                }
-                .next-button {
-                    position: fixed;
-                    left: 50%;
-                    bottom: 0;
-                    transform: translateX(-50%);
-                    padding: 10px 20px;
-                    background-color: lightgray;
-                    color: black;
-                    font-size: 70px;
-                    margin-bottom: 80px;
-                }
-                .next-button:active {
-                    transform: translateX(-50%);
-                }
-                .button-container button:hover {
-                    background-color: gray;
-                    cursor: pointer;
-                }
-                .button-container button.disabled:hover {
-                    background-color: lightgray;
-                    cursor: default;
-                }
-                .next-button:hover {
-                    background-color: gray;
-                    cursor: pointer;
-                }
-                .correct-answer {
-                    background-color: lightgreen !important;
-                }
-                .wrong-answer {
-                    background-color: lightcoral !important;
-                }
-                h1 {
-                    color: black;
-                    font-size: 70px;
-                }
-            </style>
-        </head>
-        <body>
-            <!-- Can be deleted when Database fetch works -->
-            <h1>Who killed Captain Alex?</h1>
-            <div class="button-container">
-                <button id="correct" onclick="checkAnswer(true, this)">Uganda, Mafia</button>
-                <button onclick="checkAnswer(false, this)">Deez Nutz</button>
-                <button onclick="checkAnswer(false, this)">Joe Biden</button>
-                <button onclick="checkAnswer(false, this)">Joe Mama</button>
-            </div>
-            
-            <script src="question_page.js"></script>
-        </body>
-        </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizly</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Can be adjusted when Database fetch works -->
+    <h1>Who killed Captain Alex?</h1>
+    <div class="button-container">
+        <button id="correct" onclick="checkAnswer(true, this)">Uganda, Mafia</button>
+        <button onclick="checkAnswer(false, this)">Deez Nutz</button>
+        <button onclick="checkAnswer(false, this)">Joe Biden</button>
+        <button onclick="checkAnswer(false, this)">Joe Mama</button>
+    </div>
+    
+    <script src="question_page.js"></script>
+</body>
+</html>
