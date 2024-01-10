@@ -7,6 +7,7 @@ body {
     margin: 0;
     flex-direction: column;
 }
+
 .username-container input[type="text"], .password-container input[type="password"] {
     width: 70%; /* Adjust as needed */
     padding: 12px 20px;
@@ -15,19 +16,23 @@ body {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+
 .button-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 50px;
 }
+
 .button-container-vertical {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 50px;
 }
+
 .button-container button {
     scale: 0.8;
 }
+
 button {
     padding: 10px 20px;
     background-color: silver;
@@ -38,13 +43,16 @@ button {
     text-shadow: 1px 1px 2px black;
     border-radius: 40px;
 }
+
 button:active {
     box-shadow: 2px 2px 4px black;
     transform: translate(3px, 3px);
 }
+
 #startButton, #loginButton {
     margin-bottom: 50px;
 }
+
 .next-button {
     position: fixed;
     left: 50%;
@@ -56,31 +64,39 @@ button:active {
     font-size: 70px;
     margin-bottom: 80px;
 }
+
 .next-button:active {
     transform: translateX(-50%);
 }
+
 .button-container button:hover {
     background-color: gray;
     cursor: pointer;
 }
+
 .button-container button.disabled:hover {
     background-color: lightgray;
     cursor: default;
 }
+
 .next-button:hover {
     background-color: gray;
     cursor: pointer;
 }
+
 .correct-answer {
     background-color: lightgreen !important;
 }
+
 .wrong-answer {
     background-color: lightcoral !important;
 }
+
 h1 {
     color: black;
     font-size: 70px;
 }
+
 #achievement-list {
     list-style-type: none;
     padding: 0;
@@ -96,4 +112,27 @@ h1 {
 
 #achievement-list li:hover {
     background-color: #e8e8e8;
+}
+
+#highscores {
+    padding: 20px;
+}
+
+#highscore-list {
+    font-size: 18px;
+    color: #333;
+    background-color: #f8f8f8;
+    list-style-type: none;
+    padding: 20px;
+    margin: 30px 0;
+    border: 5px solid lightseagreen;
+}
+
+#highscore-list li {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#highscore-list li:hover {
+    background-color: #e0e0e0;
 }
