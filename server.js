@@ -1,15 +1,23 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
 const db = new sqlite3.Database('quiz.db');
+const corsOptions = {
+
+    optionsSuccessStatus: 200,
+  };
+  
+  app.use(cors(corsOptions));
 
 app.use(express.json());
 
+
 db.serialize(() => {
-    db.run('CREATE TABLE IF NOT EXISTS fragen (id INTEGER PRIMARY KEY AUTOINCREMENT, frage TEXT, optionA TEXT, optionB TEXT, optionC TEXT, optionD TEXT, korrekteOption TEXT, kategorie TEXT)');
+    db.run('CREATE TABLE IF NOT EXISTS fragen (id INTEGER PRIMARY KEY AUTOINCREMENT, frage TEXT, optionA TEXT, optionB TEXT, optionC TEXT, korrekteOption TEXT, kategorie TEXT)');
 });
 
 // Endpoint zum Abrufen aller Quizfragen
@@ -26,14 +34,14 @@ app.get('/api/fragen', (req, res) => {
 
 // Endpoint zum Erstellen einer Quizfrage mit Antwortoptionen
 app.post('/api/fragen', (req, res) => {
-    const { frage, optionA, optionB, optionC, optionD, korrekteOption, kategorie } = req.body;
+    const { frage, optionA, optionB, optionC, korrekteOption, kategorie } = req.body;
 
     // Überprüfe, ob korrekteOption eine gültige Option ist (A, B, C oder D)
     if (!['A', 'B', 'C', 'D'].includes(korrekteOption)) {
         return res.status(400).json({ message: 'Ungültige korrekteOption. Verwende A, B, C oder D.' });
     }
 
-    db.run('INSERT INTO fragen (frage, optionA, optionB, optionC, optionD, korrekteOption, kategorie) VALUES (?, ?, ?, ?, ?, ?, ?)', [frage, optionA, optionB, optionC, optionD, korrekteOption, kategorie], function (err) {
+    db.run('INSERT INTO fragen (frage, optionA, optionB, optionC, korrekteOption, kategorie) VALUES (?, ?, ?, ?, ?, ?, ?)', [frage, optionA, optionB, optionC, korrekteOption, kategorie], function (err) {
         if (err) {
             console.error('Fehler beim Erstellen der Frage:', err.message);
             return res.status(500).json({ message: 'Interner Serverfehler' });
@@ -64,15 +72,15 @@ app.delete('/api/fragen/:id', (req, res) => {
 
 app.put('/api/fragen/:id', (req, res) => {
     const id = req.params.id;
-    const { frage, optionA, optionB, optionC, optionD, korrekteOption, kategorie } = req.body;
+    const { frage, optionA, optionB, optionC, korrekteOption, kategorie } = req.body;
 
     // Überprüfe, ob korrekteOption eine gültige Option ist (A, B, C oder D)
     if (!['A', 'B', 'C', 'D'].includes(korrekteOption)) {
         return res.status(400).json({ message: 'Ungültige korrekteOption. Verwende A, B, C oder D.' });
     }
 
-    db.run('UPDATE fragen SET frage = ?, optionA = ?, optionB = ?, optionC = ?, optionD = ?, korrekteOption = ?, kategorie = ? WHERE id = ?', 
-        [frage, optionA, optionB, optionC, optionD, korrekteOption, kategorie, id], 
+    db.run('UPDATE fragen SET frage = ?, optionA = ?, optionB = ?, optionC = ?, korrekteOption = ?, kategorie = ? WHERE id = ?', 
+        [frage, optionA, optionB, optionC, korrekteOption, kategorie, id], 
         function (err) {
             if (err) {
                 console.error('Fehler beim Aktualisieren der Frage:', err.message);
