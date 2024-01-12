@@ -24,9 +24,9 @@ jobs:
     - name: Install ESLint
       run: npm install eslint
 
-    - name: Static Code Analysis
-      run: npx eslint 
-
+    - name: Run ESLint and fix issues
+      run: npx eslint . --fix 
+      
     - name: Run Tests
       run: npm test
 
