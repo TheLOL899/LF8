@@ -1,3 +1,7 @@
+const {defaults} = require('jest-config');
+const { shuffle, checkAnswer } = require('./question_page');
+
+
 // Import the necessary functions from the question_page.js file
 const { shuffle, checkAnswer } = require('./question_page');
 
