@@ -33,6 +33,11 @@ jobs:
     - name: Code Coverage
       run: npm run test:coverage
 
+    - name: Deploy to Test Environment
+      if: github.event_name == 'push' && github.ref == 'refs/heads/development'
+      run: |
+        # Add deployment steps for the test environment (e.g., Docker build and push, deploy to test environment)
+
   deploy:
     runs-on: windows-latest
 
@@ -51,3 +56,27 @@ jobs:
     - name: Additional Post-Deployment Steps
       run: |
         echo "Deployment to Test Environment completed successfully!"
+  deploy_prod:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Deploy to Production
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+        # Add production deployment steps here (e.g., Docker build and push, deploy to production)
+
+  monitor_prod:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Monitor Production Environment
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+        chmod +x monitoring_script.sh
+        ./monitoring_script.sh
