@@ -25,7 +25,7 @@ jobs:
       run: npm install eslint
 
     - name: Static Code Analysis
-      run: npx eslint . || exit 0
+      run: npx eslint 
 
     - name: Run Tests
       run: npm test
@@ -39,7 +39,7 @@ jobs:
         npm install
         npm run build
         npm start
-        
+
   deploy_prod:
     runs-on: ubuntu-latest
 
