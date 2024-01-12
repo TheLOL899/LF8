@@ -1,5 +1,6 @@
 const {defaults} = require('jest-config');
 const questionPage = require('./question_page');
+import '@testing-library/jest-dom/extend-expect';
 
 
 // Import the necessary functions from the question_page.js file
@@ -23,11 +24,8 @@ test('checkAnswer function should color the button correctly', () => {
     // Führe die checkAnswer-Funktion aus
     checkAnswer(isCorrect, button);
 
-    // Verwende getComputedStyle, um den berechneten Stil zu erhalten
-    const computedStyle = window.getComputedStyle(button);
-    
-    // Überprüfe den berechneten Hintergrundfarbwert
-    expect(computedStyle.backgroundColor).toBe('rgb(0, 128, 0)'); // 'rgb(0, 128, 0)' entspricht grün
+    // Verwende Jest-DOM-Matcher für die Hintergrundfarbe
+    expect(button).toHaveStyle('background-color: rgb(0, 128, 0)');
 });
 
 test('checkAnswer function should color the button correctly', () => {
