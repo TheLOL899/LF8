@@ -23,8 +23,9 @@ test('checkAnswer function should color the button correctly', () => {
     // Führe die checkAnswer-Funktion aus
     checkAnswer(isCorrect, button);
 
-    // Verwende Jest-DOM-Matcher für die Hintergrundfarbe (Teilübereinstimmung)
-    expect(button).toHaveStyle('background-color: rgb(0, 128, 0)');
+    // Überprüfe den berechneten Hintergrundfarbwert direkt aus dem Element
+    const computedStyle = window.getComputedStyle(button);
+    expect(computedStyle.backgroundColor).toBe('rgb(0, 128, 0)');
 });
 
 /*test('checkAnswer function should color the button correctly', () => {
