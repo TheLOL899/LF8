@@ -36,46 +36,19 @@ jobs:
     - name: Deploy to Test Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/development'
       run: |
-        # Add deployment steps for the test environment (e.g., Docker build and push, deploy to test environment)
-
-  deploy:
-    runs-on: windows-latest
-
-    needs: build
-
-    steps:
-    - name: Deploy to Test Environment
-      run: npm run deploy:test
-  deploy_prod:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+        npm install
+        npm run build
+        npm start
 
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        # Add production deployment steps here (e.g., Docker build and push, deploy to production)
-
-  monitor_prod:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+          npm install
+          npm run build
+          npm start --production
 
     - name: Monitor Production Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        # Add monitoring steps here (e.g., trigger monitoring script)
-
-  post-deploy:
-    runs-on: windows-latest
-
-    needs: deploy
-
-    steps:
-    - name: Additional Post-Deployment Steps
-      run: |
-        echo "Deployment to Test Environment completed successfully!"
+        # Beispiel: Führe Überwachungsskript aus (kann je nach Bedarf angepasst werden)
+        ./monitoring_script.sh
