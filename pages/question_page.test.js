@@ -13,7 +13,7 @@ test('shuffle function should shuffle the array', () => {
 });
 
 // Test the checkAnswer function
-test('checkAnswer function should color the button correctly', () => {
+/*test('checkAnswer function should color the button correctly', () => {
     const isCorrect = true;
     
     // Erstelle ein Mock-Element für den Button
@@ -28,7 +28,7 @@ test('checkAnswer function should color the button correctly', () => {
     expect(computedStyle.backgroundColor).toBe('rgb(0, 128, 0)');
 });
 
-/*test('checkAnswer function should color the button correctly', () => {
+test('checkAnswer function should color the button correctly', () => {
     const isCorrect = false;
     const button = document.createElement('button');
     checkAnswer(isCorrect, button);
