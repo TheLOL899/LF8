@@ -25,7 +25,7 @@ jobs:
       run: npm install eslint
 
     - name: Static Code Analysis
-      run: npx eslint . || exit 0
+      run: npx eslint . --fix
 
     - name: Run Tests
       run: npm test
@@ -36,10 +36,16 @@ jobs:
     - name: Deploy to Test Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/development'
       run: |
-        npm install
-        npm run build
-        npm start
-        
+        # Add deployment steps for the test environment (e.g., Docker build and push, deploy to test environment)
+
+  deploy:
+    runs-on: windows-latest
+
+    needs: build
+
+    steps:
+    - name: Deploy to Test Environment
+      run: npm run deploy:test
   deploy_prod:
     runs-on: ubuntu-latest
 
@@ -50,8 +56,7 @@ jobs:
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-          npm install
-          npm run build
+        # Add production deployment steps here (e.g., Docker build and push, deploy to production)
 
   monitor_prod:
     runs-on: ubuntu-latest
@@ -63,5 +68,14 @@ jobs:
     - name: Monitor Production Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        chmod +x monitoring_script.sh
-        ./monitoring_script.sh
+        # Add monitoring steps here (e.g., trigger monitoring script)
+
+  post-deploy:
+    runs-on: windows-latest
+
+    needs: deploy
+
+    steps:
+    - name: Additional Post-Deployment Steps
+      run: |
+        echo "Deployment to Test Environment completed successfully!"
