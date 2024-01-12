@@ -24,9 +24,9 @@ jobs:
     - name: Install ESLint
       run: npm install eslint
 
-    - name: Run ESLint
+    - name: Static Code Analysis
       run: npx eslint 
-      
+
     - name: Run Tests
       run: npm test
 
@@ -40,28 +40,15 @@ jobs:
         npm run build
         npm start
 
-  deploy_prod:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
           npm install
           npm run build
-
-  monitor_prod:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+          npm start --production
 
     - name: Monitor Production Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        chmod +x monitoring_script.sh
+        # Beispiel: Führe Überwachungsskript aus (kann je nach Bedarf angepasst werden)
         ./monitoring_script.sh
