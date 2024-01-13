@@ -1,0 +1,27 @@
+name: Scheduled Workflow
+
+on:
+  schedule:
+    - cron: '0 * * * *' # check every hour
+
+jobs:
+  run-maintenance:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Start Application
+      run: npm start
+
+    - name: Run Maintenance Script
+      run: ./monitoring_script.sh
