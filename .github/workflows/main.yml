@@ -36,14 +36,14 @@ jobs:
     - name: Deploy to Test Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/development'
       run: |
-        npm install
-        npm start
+        # npm install
+        # npm start
 
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-          npm install
-          npm start --production
+          # npm install
+          # npm start --production
 
     - name: Monitor Production Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
