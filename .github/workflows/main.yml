@@ -28,7 +28,15 @@ jobs:
       run: npx eslint 
 
     - name: Run Tests
-      run: npm test
+      run: |
+        # Starte Tests im Hintergrund
+        npm test &
+        
+        # Schlafen für 2 Minuten
+        sleep 1m
+        
+        # Beende Jest mit --forceExit
+        npx jest --forceExit
 
     - name: Code Coverage
       run: npm run test:coverage
