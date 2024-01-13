@@ -24,7 +24,7 @@ jobs:
     - name: Install ESLint
       run: npm install eslint
 
-    - name: Static Code Analysis
+    - name: Run eslint
       run: npx eslint 
 
     - name: Run Tests
@@ -37,14 +37,12 @@ jobs:
       if: github.event_name == 'push' && github.ref == 'refs/heads/development'
       run: |
         npm install
-        npm run build
         npm start
 
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
           npm install
-          npm run build
           npm start --production
 
     - name: Monitor Production Environment

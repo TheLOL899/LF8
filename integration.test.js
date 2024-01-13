@@ -11,7 +11,9 @@ beforeAll((done) => {
 });
 
 afterAll((done) => {
-    testapp.close(done);
+    testApp.close(() => {
+        done();
+    });
 });
 
 test('sollte alle Quizfragen abrufen', async () => {
