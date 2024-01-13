@@ -81,3 +81,8 @@ window.onload = function() {
         });
 };
 */
+
+module.exports = {
+    shuffle,
+    checkAnswer
+  };
