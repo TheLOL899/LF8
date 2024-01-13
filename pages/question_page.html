@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizly</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Can be adjusted when Database fetch works -->
+    <h1>Who killed Captain Alex?</h1>
+    <div class="button-container">
+        <button id="correct" onclick="checkAnswer(true, this)">Uganda, Mafia</button>
+        <button onclick="checkAnswer(false, this)">Deez Nutz</button>
+        <button onclick="checkAnswer(false, this)">Joe Biden</button>
+        <button onclick="checkAnswer(false, this)">Joe Mama</button>
+    </div>
+    
+    <script src="question_page.js"></script>
+</body>
+</html>

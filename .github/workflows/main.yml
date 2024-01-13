@@ -1,0 +1,54 @@
+name: Continuous Integration and Deployment
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Install ESLint
+      run: npm install eslint
+
+    - name: Static Code Analysis
+      run: npx eslint 
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Code Coverage
+      run: npm run test:coverage
+
+    - name: Deploy to Test Environment
+      if: github.event_name == 'push' && github.ref == 'refs/heads/development'
+      run: |
+        npm install
+        npm run build
+        npm start
+
+    - name: Deploy to Production
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+          npm install
+          npm run build
+          npm start --production
+
+    - name: Monitor Production Environment
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+        # Beispiel: Führe Überwachungsskript aus (kann je nach Bedarf angepasst werden)
+        ./monitoring_script.sh
