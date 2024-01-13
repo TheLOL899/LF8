@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 const request = require('supertest');
-const { app } = require('./server');
+const { app } = require('./serverToTest');
 
 const testPort = 3001; // Verwende einen freien Port
 let testapp;

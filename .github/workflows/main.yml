@@ -21,22 +21,11 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Install ESLint
-      run: npm install eslint
-
     - name: Run eslint
       run: npx eslint 
 
     - name: Run Tests
-      run: |
-        # Starte Tests im Hintergrund
-        npm test &
-        
-        # Timer für 1 Minute
-        Start-Sleep -Seconds (1 * 60)
-        
-        # Beende Jest mit --forceExit
-        npx jest --forceExit
+      run: npm test
 
     - name: Code Coverage
       run: npm run test:coverage
