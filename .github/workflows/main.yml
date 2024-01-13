@@ -21,10 +21,7 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Install ESLint
-      run: npm install eslint
-
-    - name: Static Code Analysis
+    - name: Run eslint
       run: npx eslint 
 
     - name: Run Tests
@@ -32,19 +29,20 @@ jobs:
 
     - name: Code Coverage
       run: npm run test:coverage
+      
+    - name: Check for vulnerabilities 
+      run: npm audit
 
     - name: Deploy to Test Environment
       if: github.event_name == 'push' && github.ref == 'refs/heads/development'
       run: |
         npm install
-        npm run build
         npm start
 
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
           npm install
-          npm run build
           npm start --production
 
     - name: Monitor Production Environment
