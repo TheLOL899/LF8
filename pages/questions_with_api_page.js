@@ -58,3 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Fehler beim Abrufen der Fragen:', error));
 });
+
+let correctAnswersCount = 0;
+
+function checkAnswer() {
+  if (answerIsCorrect) {
+    correctAnswersCount++;
+    if (correctAnswersCount >= 10) {
+      unlockAchievement("Answer 10 questions correctly");
+    }
+  }
+}
+
+function unlockAchievement(achievementName) {
+    let achievements = JSON.parse(localStorage.getItem('achievements')) || [];
+    achievements.push(achievementName);
+    localStorage.setItem('achievements', JSON.stringify(achievements));
+  }
