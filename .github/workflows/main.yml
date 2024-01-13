@@ -32,8 +32,8 @@ jobs:
         # Starte Tests im Hintergrund
         npm test &
         
-        # Schlafen für 2 Minuten
-        sleep 1m
+        # Timer für 1 Minute
+        Start-Sleep -Seconds (1 * 60)
         
         # Beende Jest mit --forceExit
         npx jest --forceExit
