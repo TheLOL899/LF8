@@ -11,7 +11,7 @@ beforeAll((done) => {
 });
 
 afterAll((done) => {
-    testApp.close(() => {
+    testapp.close(() => {
         done();
     });
 });
