@@ -9,11 +9,11 @@ log() {
 
 # Funktion, um Anwendungsstatus zu überwachen
 monitor_application() {
-  http_status=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
+  http_status=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/fragen)
   if [ "$http_status" -eq 200 ]; then
-    log "Anwendung ist verfügbar (HTTP-Status: $http_status)"
+    log "API ist verfügbar (HTTP-Status: $http_status)"
   else
-    log "WARNUNG: Anwendung ist möglicherweise nicht verfügbar (HTTP-Status: $http_status)"
+    log "WARNUNG: API ist möglicherweise nicht verfügbar (HTTP-Status: $http_status)"
   fi
 }
 
