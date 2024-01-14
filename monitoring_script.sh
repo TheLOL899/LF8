@@ -17,11 +17,24 @@ monitor_application() {
   fi
 }
 
+# Funktion, um die Anwendung zu starten
+start_application() {
+  log "Starte die Anwendung"
+  npm start &
+  # Füge hier eine Wartezeit ein, wenn es Zeit braucht, um zu starten
+  sleep 30  # Beispiel: Warte 30 Sekunden, passt dies an deine Bedürfnisse an
+}
+
 # Hauptfunktion für das Monitoring
 main() {
   log "Starte das Monitoring-Skript"
 
-  monitor_application
+  start_application  # Anwendung starten
+
+  # Wartezeit, um sicherzustellen, dass die Anwendung gestartet ist
+  sleep 10  # Beispiel: Warte 10 Sekunden, passt dies an deine Bedürfnisse an
+
+  monitor_application  # Überwache die Anwendung
 
   log "Monitoring-Skript abgeschlossen"
 }
