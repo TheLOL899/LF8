@@ -20,8 +20,5 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Start Application
-      run: npm start
-
     - name: Run Maintenance Script
       run: ./monitoring_script.sh
