@@ -2,7 +2,7 @@ name: Scheduled Workflow
 
 on:
   schedule:
-    - cron: '0 * * * *' # check every hour
+    - cron: '0 */8 * * *' # check every 8 hours
 
 jobs:
   run-maintenance:
