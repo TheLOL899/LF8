@@ -33,6 +33,7 @@ document.getElementById('login').addEventListener('click', function() {
 
     if(user) {
         document.getElementById('errorMessage').textContent = 'Login successful!';
+        localStorage.setItem('loggedInUser', username);
         window.location.href = 'account_page.html';
     } else {
         document.getElementById('errorMessage').textContent = 'Invalid username or password!';

@@ -1,5 +1,5 @@
 document.getElementById('startButton').addEventListener('click', function() {
-    window.location.href = 'question_page.html';
+    window.location.href = 'questions_with_api_page.html';
 });
 
 document.getElementById('multiplayerButton').addEventListener('click', function() {
@@ -15,5 +15,5 @@ document.getElementById('highscoreButton').addEventListener('click', function() 
 });
 
 document.getElementById('logoutButton').addEventListener('click', function() {
-    window.location.href = 'start_page.html';
+    window.location.href = 'login_page.html';
 });

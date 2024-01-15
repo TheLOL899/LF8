@@ -18,12 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return createOptionButton(optionText, optionKey);
         });
 
-        // Anzeige der Antwortmöglichkeiten-Buttons
-        optionButtons.forEach(button => optionsContainer.appendChild(button));
-
         // Erstellung des Buttons für die korrekte Option
         const correctOptionButton = createOptionButton(currentQuestion.korrekteOption, 'correct');
-        optionsContainer.appendChild(correctOptionButton);
+        optionButtons.push(correctOptionButton); // Füge den Button für die korrekte Option hinzu
+
+        // Zufällige Anordnung der Antwortmöglichkeiten-Buttons
+        for (let i = optionButtons.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [optionButtons[i], optionButtons[j]] = [optionButtons[j], optionButtons[i]];
+        }
+
+        // Anzeige der Antwortmöglichkeiten-Buttons
+        optionButtons.forEach(button => optionsContainer.appendChild(button));
     }
 
     // Funktion zur Erstellung der Antwortmöglichkeiten-Buttons
@@ -31,47 +37,89 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = document.createElement('button');
         button.textContent = optionText;
         button.classList.add('option-button');
-        button.addEventListener('click', () => checkAnswer(optionKey));
+        button.dataset.correct = optionKey === 'correct'; // Add data attribute
+        button.addEventListener('click', () => checkAnswer(optionKey, button));
         return button;
     }
 
     // Funktion zur Überprüfung der Antwort
-    function checkAnswer(selectedOptionKey) {
+    function checkAnswer(selectedOptionKey, button) {
+        // Deaktiviere alle Buttons, damit der Benutzer nicht mehr klicken kann
+        const optionButtons = document.querySelectorAll('.option-button');
+        optionButtons.forEach(button => button.disabled = true);
+    
+        // Entferne alle vorherigen Rückmeldungen
+        feedbackContainer.classList.remove('correct-feedback', 'wrong-feedback');
+        button.classList.remove('correct-answer', 'wrong-answer');
+    
         if (selectedOptionKey === 'correct') {
-            // Zeige "Correct" an, wenn der Button für die korrekte Option ausgewählt wurde
-            feedbackContainer.textContent = 'Correct';
+            // Zeige eine Rückmeldung für eine korrekte Antwort
+            feedbackContainer.textContent = 'Richtig!';
+            feedbackContainer.classList.add('correct-feedback');
+            button.classList.add('correct-answer');
+            correctAnswers++;
         } else {
-            // Hier kannst du optional eine Rückmeldung für eine falsche Antwort implementieren
-             feedbackContainer.textContent = 'Incorrect';
+            // Zeige eine Rückmeldung für eine falsche Antwort
+            feedbackContainer.textContent = 'Falsch!';
+            feedbackContainer.classList.add('wrong-feedback');
+            button.classList.add('wrong-answer');
+    
+            // Finde den Button für die korrekte Antwort und füge die Klasse correct-answer hinzu
+            const correctButton = Array.from(optionButtons).find(button => button.dataset.correct === 'true');
+            if (correctButton) {
+                correctButton.classList.remove('wrong-answer');
+                correctButton.classList.add('correct-answer');
+            }
         }
+            // Erstellt den Button für die nächste Frage
+            var nextButton = document.createElement("button");
+            nextButton.textContent = "Nächste Frage";
+            nextButton.classList.add("next-button");
+            document.body.appendChild(nextButton);
+
+            // Event-Listener für den Button für die nächste Frage
+            nextButton.addEventListener('click', function() {
+                this.remove();
+                currentQuestionIndex++;
+                if (currentQuestionIndex < 10) {
+                    displayQuestion(allQuestions[currentQuestionIndex]);
+                    console.log(allQuestions);
+                } else {
+                    saveScore(username, correctAnswers);
+                    window.location.href = 'highscore_page.html';
+                }
+                // Entferne alle vorherigen feedbacks
+                feedbackContainer.textContent = '';
+                feedbackContainer.classList.remove('wrong-feedback');
+            });
+
     }
+
+    var username = localStorage.getItem('loggedInUser');
+
+    function saveScore(username, score) {
+        fetch('http://localhost:3000/api/score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, score }),
+        })
+        .then(response => response.json())
+        .then(data => console.log('Score saved:', data))
+        .catch((error) => console.error('Error:', error));
+    }
+
+    let currentQuestionIndex = 0;
+    let allQuestions = [];
+    let correctAnswers = 0;
 
     // Fetch-GET-Aufruf, um die Fragen vom Server zu laden
     fetch('http://localhost:3000/api/fragen')
         .then(response => response.json())
         .then(questions => {
-            // Starte das Quiz mit der ersten Frage
-            displayQuestion(questions[0]);
-
-            // Optional: Hier kannst du Logik hinzufügen, um durch weitere Fragen zu iterieren
-            // und das Quiz dynamisch zu gestalten.
+            allQuestions = questions;
+            displayQuestion(allQuestions[currentQuestionIndex]);
         })
         .catch(error => console.error('Fehler beim Abrufen der Fragen:', error));
 });
-
-let correctAnswersCount = 0;
-
-function checkAnswer() {
-  if (answerIsCorrect) {
-    correctAnswersCount++;
-    if (correctAnswersCount >= 10) {
-      unlockAchievement("Answer 10 questions correctly");
-    }
-  }
-}
-
-function unlockAchievement(achievementName) {
-    let achievements = JSON.parse(localStorage.getItem('achievements')) || [];
-    achievements.push(achievementName);
-    localStorage.setItem('achievements', JSON.stringify(achievements));
-  }

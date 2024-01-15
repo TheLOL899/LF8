@@ -48,6 +48,19 @@ app.post('/api/fragen', (req, res) => {
     });
 });
 
+app.post('/api/score', (req, res) => {
+    const { username, score } = req.body;
+
+        db.run('INSERT INTO highscore (username, score) VALUES (?, ?)', [username, score], function (err) {
+            if (err) {
+                console.error('Fehler beim Erstellen des Score:', err.message);
+                return res.status(500).json({ message: 'Interner Serverfehler' });
+            }
+
+        res.json({ message: 'Score saved' });
+    });
+});
+
 app.delete('/api/fragen/:id', (req, res) => {
     const id = req.params.id;
 

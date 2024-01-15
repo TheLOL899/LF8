@@ -39,6 +39,54 @@ db.serialize(() => {
         korrekteOption: 'Nichts',
         kategorie: 'Essen'
     };
+    const frageGaming = {
+        frage: 'Was ist die meisverkaufteste Videospielkonsole aller Zeiten?',
+        optionA: 'Nindendo Wii',
+        optionB: 'XBox 360',
+        optionC: 'Atari 2600',
+        korrekteOption: 'Playstation 2',
+        kategorie: 'Gaming'
+    };
+    const frageGaming2 = {
+        frage: 'Welches Spiel hat den ersten "Game Award for Game of the Year" gewonnen?',
+        optionA: 'Dark Souls 2',
+        optionB: 'The Witcher 3: Wild Hunt',
+        optionC: 'Fallout 4',
+        korrekteOption: 'Dragon Age: Inquisition',
+        kategorie: 'Gaming'
+    };
+    const frageAnime = {
+        frage: 'Wie heißt der Hauptcharakter aus dem Anime "Attack on Titan"?',
+        optionA: 'Ichigo Kurosaki',
+        optionB: 'Lelouch Lamperouge',
+        optionC: 'Armin Arlert',
+        korrekteOption: 'Eren Yeager',
+        kategorie: 'Anime'
+    };
+    const frageAnime2 = {
+        frage: 'Was ist ein "Gundam" im gleichnamigen Anime?',
+        optionA: 'Ein Handgewehr',
+        optionB: 'Ein Auto',
+        optionC: 'Ein Netzwerk',
+        korrekteOption: 'Ein Roboter',
+        kategorie: 'Anime'
+    };
+    const frageRandom = {
+        frage: 'An welche Zahl denke ich gerade?',
+        optionA: '1',
+        optionB: '2',
+        optionC: '4',
+        korrekteOption: '3',
+        kategorie: 'Random'
+    };
+    const frageRandom2 = {
+        frage: 'Links, Rechts, Oben oder Unten?',
+        optionA: 'Links',
+        optionB: 'Rechts',
+        optionC: 'Oben',
+        korrekteOption: 'Unten',
+        kategorie: 'Random'
+    };
 
     // Funktion zum Einfügen einer Frage
     const insertFrage = (frage) => {
@@ -58,6 +106,12 @@ db.serialize(() => {
     insertFrage(frageTaylorSwift2);
     insertFrage(frageEssen);
     insertFrage(frageEssen2);
+    insertFrage(frageGaming);
+    insertFrage(frageGaming2);
+    insertFrage(frageAnime);
+    insertFrage(frageAnime2);
+    insertFrage(frageRandom);
+    insertFrage(frageRandom2);
 });
 
 // Schließe die Datenbankverbindung
