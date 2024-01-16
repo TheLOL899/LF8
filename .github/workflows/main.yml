@@ -33,12 +33,6 @@ jobs:
     - name: Check for vulnerabilities 
       run: npm audit
 
-    - name: Deploy to Test Environment
-      if: github.event_name == 'push' && github.ref == 'refs/heads/development'
-      run: |
-        # npm install
-        # npm start
-
     - name: Deploy to Production
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
