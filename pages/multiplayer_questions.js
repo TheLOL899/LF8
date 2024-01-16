@@ -98,9 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentQuestionIndex < 10) {
                     displayQuestion(allQuestions[currentQuestionIndex]);
                 } else {
-                    window.location.href = 'highscore_page.html';
+                    if (correctAnswers === 10) {
+                        window.location.href = 'achievements_page.html?achievement=10correct';
+                        window.location.href = 'highscore_page.html';
+                    } else {
+                        window.location.href = 'highscore_page.html';
+                    }
                 }
-                // Entferne alle vorherigen feedbacks
+                // Remove all previous feedbacks
                 feedbackContainer.textContent = '';
                 feedbackContainer.classList.remove('wrong-feedback');
             });

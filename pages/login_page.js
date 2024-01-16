@@ -32,10 +32,23 @@ document.getElementById('login').addEventListener('click', function() {
     });
 
     if(user) {
-        document.getElementById('errorMessage').textContent = 'Login successful!';
-        localStorage.setItem('loggedInUser', username);
+        localStorage.setItem('currentUser', username);
         window.location.href = 'account_page.html';
     } else {
         document.getElementById('errorMessage').textContent = 'Invalid username or password!';
+    }
+});
+
+document.getElementById('username').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        document.getElementById('login').click();
+    }
+});
+
+document.getElementById('password').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        document.getElementById('login').click();
     }
 });

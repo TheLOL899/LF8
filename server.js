@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 
@@ -14,6 +15,8 @@ const corsOptions = {
   app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'pages')));
 
 module.exports = { app };
 
@@ -45,19 +48,6 @@ app.post('/api/fragen', (req, res) => {
 
         console.log('Neue Frage erstellt mit ID:', this.lastID);
         res.status(201).json({ message: 'Frage erfolgreich erstellt', id: this.lastID });
-    });
-});
-
-app.post('/api/score', (req, res) => {
-    const { username, score } = req.body;
-
-        db.run('INSERT INTO highscore (username, score) VALUES (?, ?)', [username, score], function (err) {
-            if (err) {
-                console.error('Fehler beim Erstellen des Score:', err.message);
-                return res.status(500).json({ message: 'Interner Serverfehler' });
-            }
-
-        res.json({ message: 'Score saved' });
     });
 });
 

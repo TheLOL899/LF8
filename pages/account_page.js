@@ -17,3 +17,19 @@ document.getElementById('highscoreButton').addEventListener('click', function() 
 document.getElementById('logoutButton').addEventListener('click', function() {
     window.location.href = 'login_page.html';
 });
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'h') {
+        document.getElementById('helpText').innerText =
+            'Starten: Starte das Quiz mit 10 Fragen.\n' +
+            'Mehrspieler: Starte das Quiz mit einer anderen Person.\n' +
+            'Achievments: Erreichbare und schon erreichte Achievments.\n' +
+            'Rangliste: Eine Rangliste in der man sein Highscore mit anderen vergleichen kann.\n' +
+            'Ausloggen: Logge dich aus und kehre zum Login zurück.';
+        document.getElementById('helpModal').style.display = 'block';
+    }
+});
+
+document.getElementsByClassName('close')[0].addEventListener('click', function() {
+    document.getElementById('helpModal').style.display = 'none';
+});

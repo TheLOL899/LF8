@@ -32,11 +32,11 @@ db.serialize(() => {
         kategorie: 'Essen'
     };
     const frageEssen2 = {
-        frage: 'Was essen Kinder in Afrika?',
-        optionA: 'Brot',
-        optionB: 'Pizza',
-        optionC: 'Staub',
-        korrekteOption: 'Nichts',
+        frage: 'Was braucht man nicht um einen guten Kuchen zu backen?',
+        optionA: 'Eier und Schmalz',
+        optionB: 'Zucker und Salz',
+        optionC: 'Milch und Mehl',
+        korrekteOption: 'Shokolade und Muskat',
         kategorie: 'Essen'
     };
     const frageGaming = {

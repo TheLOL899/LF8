@@ -83,9 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentQuestionIndex++;
                 if (currentQuestionIndex < 10) {
                     displayQuestion(allQuestions[currentQuestionIndex]);
-                    console.log(allQuestions);
                 } else {
-                    saveScore(username, correctAnswers);
+                    localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
                     window.location.href = 'highscore_page.html';
                 }
                 // Entferne alle vorherigen feedbacks
@@ -93,21 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 feedbackContainer.classList.remove('wrong-feedback');
             });
 
-    }
-
-    var username = localStorage.getItem('loggedInUser');
-
-    function saveScore(username, score) {
-        fetch('http://localhost:3000/api/score', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, score }),
-        })
-        .then(response => response.json())
-        .then(data => console.log('Score saved:', data))
-        .catch((error) => console.error('Error:', error));
     }
 
     let currentQuestionIndex = 0;

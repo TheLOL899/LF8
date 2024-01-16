@@ -1,13 +1,16 @@
-let achievements = JSON.parse(localStorage.getItem('achievements')) || [];
+let params = new URLSearchParams(window.location.search);
+let achievement = params.get('achievement');
+if (achievement === '10correct') {
+    // Display the achievement
+    console.log("Achievement '10correct' received"); // Debug check
 
-let achievementsList = document.getElementById('achievementsList');
+    // Save the achievement to localStorage
+    localStorage.setItem('10correct', true);
 
-// Clear out the current list
-achievementsList.innerHTML = '';
-
-// Add each achievement to the list
-achievements.forEach(function(achievement) {
-  let listItem = document.createElement('li');
-  listItem.textContent = achievement;
-  achievementsList.appendChild(listItem);
-});
+    // Create a new paragraph element
+    let achievementElement = document.createElement('p');
+    // Set the text of the element to the achievement message
+    achievementElement.textContent = "Congratulations! You have received the '10 correct' achievement!";
+    // Append the element to the body of the document
+    document.body.appendChild(achievementElement);
+}
