@@ -1,8 +1,8 @@
 name: Scheduled Workflow
 
-on:
-  schedule:
-    - cron: '0 */8 * * *' # check every 8 hours
+# on:
+  # schedule:
+   # - cron: '0 */8 * * *' # check every 8 hours
 
 jobs:
   run-maintenance:
